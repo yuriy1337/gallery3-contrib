@@ -115,7 +115,14 @@ class Sendmail_Core {
       $mail->SMTPAuth = true;
       if (module::get_var("phpmailer", "use_ssl") == true) {
         $mail->SMTPSecure = "ssl";
+	Kohana_Log::add("log", "using ssl");
       }
+
+      if (module::get_var("phpmailer", "use_tls") == true) {
+        $mail->SMTPSecure = "tls";
+        Kohana_Log::add("log", "using tls");
+      }
+
       $mail->Username = module::get_var("phpmailer", "smtp_login");
       $mail->Password = module::get_var("phpmailer", "smtp_password");
     } else {
